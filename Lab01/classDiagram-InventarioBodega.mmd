@@ -1,0 +1,53 @@
+classDiagram
+direction LR
+
+class Usuario {
+  +int IdUsuario
+  +string Nombre
+  +string Correo
+  +string Rol
+  +bool Activo
+}
+
+class Activo {
+  +int IdActivo
+  +string Descripcion
+  +string Marca
+  +string Modelo
+  +string Patrimonio
+  +string Condicion
+  +string Ubicacion
+  +date FechaRegistro
+}
+
+class Ingreso {
+  +int IdIngreso
+  +int IdActivo_FK
+  +date FechaIngreso
+  +string Oficio
+  +string Observaciones
+}
+
+class Salida {
+  +int IdSalida
+  +int IdActivo_FK
+  +date FechaSalida
+  +string OficioCaso
+  +string Observaciones
+  +string Destino
+}
+
+class HistorialMovimiento {
+  +int IdMovimiento
+  +int IdUsuario_FK
+  +int IdActivo_FK
+  +string TipoMovimiento
+  +date Fecha
+}
+
+Usuario "1" --> "0..*" Ingreso : registra
+Usuario "1" --> "0..*" Salida : autoriza
+Activo "1" --> "0..*" Ingreso : entra
+Activo "1" --> "0..*" Salida : sale
+Usuario "1" --> "0..*" HistorialMovimiento : genera
+Activo "1" --> "0..*" HistorialMovimiento : queda_registrado
